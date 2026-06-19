@@ -9,7 +9,7 @@ class UserService {
             throw new Error('As senhas não coincidem.');
         }
 
-        // validacao dos requisitooos de segurança da senha (8 letras, maiuscula, numero e especial)
+        // validacao dos requisitos de segurança da senha (8 letras, maiuscula, numero e especial)
         const senhaRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         if (!senhaRegex.test(senha)) {
             throw new Error('A senha deve ter no mínimo 8 caracteres, uma letra maiúscula, um número e um caractere especial.');

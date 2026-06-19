@@ -1,7 +1,7 @@
 const db = require('../config/database');
 
 class UserRepository {
-    // busca o cara pelo email pra ver se n tem duplicado no db
+    // busca o usuario pelo email pra ver se n tem duplicado no db
     async findByEmail(email) {
         const query = 'SELECT * FROM usuarios WHERE email = $1';
         const result = await db.query(query, [email]);
@@ -27,7 +27,7 @@ class UserRepository {
         return result.rows[0];
     }
 
-    // pega o perfil do usuário sem retornar o has da senha
+    // pega o perfil do usuário sem retornar o hash da senha
     async findById(id) {
         const query = 'SELECT id, nome, email, saldo FROM usuarios WHERE id = $1';
         const result = await db.query(query, [id]);
@@ -47,7 +47,7 @@ class UserRepository {
         return result.rows[0];
     }
 
-    // deleta o cara (e o cascade que a gnt fez no banco leva os jogos junto)
+    // deleta o usuario (e o cascade que a gnt fez no banco leva os jogos junto)
     async delete(id) {
         const query = 'DELETE FROM usuarios WHERE id = $1';
         await db.query(query, [id]);
