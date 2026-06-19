@@ -14,7 +14,7 @@ class GameRepository {
         return result.rows[0];
     }
 
-    // verifica se o mano já tem uma partida rolando (regra do PDF)
+    // verifica se o usuario já tem uma partida rolando (regra do PDF)
     async findActiveGameByUser(usuarioId) {
         const query = "SELECT * FROM jogos WHERE usuario_id = $1 AND status = 'EM_ANDAMENTO'";
         const result = await db.query(query, [usuarioId]);

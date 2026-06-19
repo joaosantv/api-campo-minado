@@ -22,7 +22,7 @@ class GameService {
         for (let i = 0; i < 5; i++) {
             let linha = [];
             for (let j = 0; j < 5; j++) {
-                // guarda o conteudo e avisa q a casa ta fechada ainda
+                // guarda o conteudo e avisa que a casa ta fechada ainda
                 linha.push({ conteudo: posicoes[i * 5 + j], aberta: false });
             }
             tabuleiro.push(linha);
@@ -73,13 +73,13 @@ class GameService {
         // marca como aberta agr
         casa.aberta = true;
 
-        // se achou bomba deu ruim F
+        // se achou bomba, altera o status para perdido
         if (casa.conteudo === 'BOMBA') {
             await gameRepository.updateGameState(gameId, 'PERDIDO', jogo.diamantes_encontrados, jogo.tabuleiro);
             return { resultado: 'BOMBA', status: 'PERDIDO' };
         }
 
-        // achou diamante, vamo calcular a grana
+        // achou diamante, ai calcula o dinheiro
         const diamantesAtualizados = jogo.diamantes_encontrados + 1;
         
         // formula que tava no pdf
@@ -101,13 +101,13 @@ class GameService {
         if (!jogo) throw new Error('Jogo não encontrado.');
         if (jogo.status !== 'EM_ANDAMENTO') throw new Error('Esta partida já foi encerrada ou você perdeu.');
 
-        // calcula o premio final so pra ter ctz
+        // calcula o premio final so pra ter certeza
         const premioFinal = jogo.valor_aposta * (1 + (jogo.diamantes_encontrados * 0.33));
 
-        // manda o premio pro saldo do mano
+        // manda o premio pro saldo do usuario
         await userRepository.updateSaldo(jogo.usuario_id, premioFinal);
 
-        // encerra a partida gg
+        // encerra a partida e registra a vitória
         await gameRepository.updateGameState(gameId, 'VITORIA', jogo.diamantes_encontrados, jogo.tabuleiro);
 
         return {

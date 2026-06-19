@@ -8,7 +8,7 @@ class UserRepository {
         return result.rows[0];
     }
 
-    // joga o maluco novo na tabela do banco
+    // insere o novo usuário na tabela do banco de dados
     async create(nome, email, dataNascimento, senha) {
         const query = `
             INSERT INTO usuarios (nome, email, data_nascimento, senha)
@@ -27,7 +27,7 @@ class UserRepository {
         return result.rows[0];
     }
 
-    // pega o perfil de boas sem vazar a senha do cara
+    // pega o perfil do usuário sem retornar o has da senha
     async findById(id) {
         const query = 'SELECT id, nome, email, saldo FROM usuarios WHERE id = $1';
         const result = await db.query(query, [id]);

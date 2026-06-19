@@ -9,13 +9,13 @@ class UserService {
             throw new Error('As senhas não coincidem.');
         }
 
-        // validacao chata de senha (8 letras, maiuscula, numero e especial)
+        // validacao dos requisitooos de segurança da senha (8 letras, maiuscula, numero e especial)
         const senhaRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         if (!senhaRegex.test(senha)) {
             throw new Error('A senha deve ter no mínimo 8 caracteres, uma letra maiúscula, um número e um caractere especial.');
         }
 
-        // ve se o email ja existe pra n dar BO de duplicidade
+        // ve se o email ja existe para evitar duplicidade
         const userExists = await userRepository.findByEmail(email);
         if (userExists) {
             throw new Error('Este e-mail já está cadastrado no sistema.');

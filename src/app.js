@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
     res.json({ mensagem: 'API do Campo Minado rodando liso!' });
 });
 
-// pega a porta salva no .env ou joga na 3000 se der algum BO
+// define a porta do servidor com fallback para 3000
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {

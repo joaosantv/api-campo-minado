@@ -3,7 +3,7 @@ const gameService = require('../services/gameService');
 class GameController {
     async startGame(req, res) {
         try {
-            // pega o id do cara e o valor da aposta que vieram no postman/front
+            // pega o id do usuario e o valor da aposta que vieram no postman/front
             const { idUser, valorAposta } = req.body;
 
             // manda pro service iniciar a parada e gerar o tabuleiro
@@ -12,7 +12,7 @@ class GameController {
             // status 201 pq a gente literalmente criou uma partida nova no banco
             res.status(201).json(gameInfo);
         } catch (error) {
-            // se o mano tiver sem saldo ou já tiver jogando, o erro cai aqui
+            // se o usuario tiver sem saldo ou já tiver jogando, o erro cai aqui
             res.status(400).json({ erro: error.message });
         }
     }
